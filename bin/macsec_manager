@@ -1,0 +1,31 @@
+#!/bin/sh
+
+BASE_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+
+case "$1" in
+
+    start)
+        exec "$BASE_DIR/scripts/start.sh"
+        ;;
+
+    stop)
+        exec "$BASE_DIR/scripts/stop.sh"
+        ;;
+
+    restart)
+        exec "$BASE_DIR/scripts/restart.sh"
+        ;;
+
+    status)
+        exec "$BASE_DIR/scripts/status.sh"
+        ;;
+
+    *)
+        echo "Usage:"
+        echo "  macsec_manager start"
+        echo "  macsec_manager stop"
+        echo "  macsec_manager restart"
+        echo "  macsec_manager status"
+        exit 1
+        ;;
+esac
