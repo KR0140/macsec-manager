@@ -280,7 +280,8 @@ show_security_policy()
     PROTECT=$(echo "$MACSEC_INFO" | awk '/protect/ {print $4}')
     VALIDATE=$(echo "$MACSEC_INFO" | awk '/validate/ {print $6}')
     ENCRYPT=$(echo "$MACSEC_INFO" | awk '/encrypt/ {print $12}')
-    REPLAY=$(echo "$MACSEC_INFO" | awk '/replay/ {print $16}')
+    REPLAY=$(echo "$MACSEC_INFO" | awk '/replay/ {print $20}')
+    WINDOW_SIZE=$(echo "$MACSEC_INFO" | awk '/window/ {print $22}')
 
     ICV_LEN=$(
         echo "$MACSEC_INFO" \
@@ -300,6 +301,9 @@ show_security_policy()
 
     print_field "Replay Protection" \
         "$(value_or_na "$REPLAY")"
+
+    print_field "Window Size" \
+        "$(value_or_na "$WINDOW_SIZE")"
 
     print_field "Validation" \
         "$(value_or_na "$VALIDATE")"
