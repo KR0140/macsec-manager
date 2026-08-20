@@ -1,0 +1,35 @@
+# Current State
+
+## Completed
+
+### Service
+
+- common.sh
+- start.sh
+- stop.sh
+- restart.sh
+- status.sh
+
+### Analysis
+
+- info.sh
+- framelog.sh
+
+### Testing
+
+- send_package
+- replay testing
+
+### Configuration
+
+- macsec_def.conf
+- automatic wpa_supplicant.conf generation
+
+## Next Task
+
+- validate replay protection
+- validate replay window
+- clean status.sh
+
+## Future
+
