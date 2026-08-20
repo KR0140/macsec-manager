@@ -1,0 +1,6 @@
+date: 20/8/2026
+author: KR0140
+
+[ ] check for path in scripts file, make sure there is unsolid path like ../config
+	- start.sh contain ../ path
+
