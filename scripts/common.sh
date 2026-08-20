@@ -8,6 +8,10 @@ COMMON_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 CONFIG_FILE="$COMMON_DIR/../config/macsec_def.conf"
 
+LOG_FILE="$COMMON_DIR/../debug/macsec_manager.log"
+
+WPA_CONF="/etc/wpa_supplicant.conf"
+
 ###############################################################################
 # CONFIG
 ###############################################################################
@@ -21,6 +25,39 @@ load_config()
 
     # shellcheck disable=SC1090
     . "$CONFIG_FILE"
+}
+
+validate_config()
+{
+    REQUIRED_VARS="
+        PHYSICAL_IF
+        MACSEC_IF
+
+        MKA_CAK
+        MKA_CKN
+
+        MACSEC_IP
+        MACSEC_PREFIX
+
+        MACSEC_POLICY
+        MACSEC_INTEG_ONLY
+
+        MACSEC_REPLAY_PROTECT
+        MACSEC_REPLAY_WINDOW
+
+        MKA_PRIORITY
+        MACSEC_PORT
+    "
+
+    for VAR in $REQUIRED_VARS
+    do
+        eval VALUE=\$$VAR
+
+        if [ -z "$VALUE" ]; then
+            echo "ERROR: $VAR is not configured"
+            exit 1
+        fi
+    done
 }
 
 ###############################################################################
@@ -159,6 +196,40 @@ dump_runtime_info()
     echo "LOG_FILE=$LOG_FILE"
 }
 
+
+###############################################################################
+# WPA CONFIG
+###############################################################################
+
+generate_wpa_config()
+{
+    cat > "$WPA_CONF" <<EOF
+eapol_version=3
+ap_scan=0
+fast_reauth=1
+
+network={
+        key_mgmt=NONE
+        eapol_flags=0
+
+        macsec_policy=$MACSEC_POLICY
+
+        mka_cak=$MKA_CAK
+        mka_ckn=$MKA_CKN
+
+        mka_priority=$MKA_PRIORITY
+
+        macsec_port=$MACSEC_PORT
+
+        macsec_integ_only=$MACSEC_INTEG_ONLY
+
+        macsec_replay_protect=$MACSEC_REPLAY_PROTECT
+        macsec_replay_window=$MACSEC_REPLAY_WINDOW
+}
+EOF
+}
+
 ###############################################################################
 # EOF
 ###############################################################################
+
