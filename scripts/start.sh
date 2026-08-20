@@ -13,9 +13,8 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ###############################################################################
 
 load_config
+validate_config
 check_root
-
-LOCAL_WPA_CONF="../config/wpa_supplicant.conf"
 
 echo
 echo "Starting MACsec..."
@@ -43,23 +42,13 @@ echo "  OK"
 # STEP 2 - DEPLOY WPA CONFIGURATION
 ###############################################################################
 
-echo "[2/5] Deploying WPA configuration..."
+echo "[2/5] Generating WPA configuration..."
 
-if [ ! -f "$LOCAL_WPA_CONF" ]; then
-
-    echo "  FAILED"
-    echo "  File not found: $LOCAL_WPA_CONF"
-
-    log_error "WPA configuration not found"
-
-    exit 1
-fi
-
-cp "$LOCAL_WPA_CONF" "$WPA_CONF"
+generate_wpa_config
 
 echo "  OK"
 
-log_info "WPA configuration deployed"
+log_info "WPA configuration generated"
 
 ###############################################################################
 # STEP 3 - START WPA_SUPPLICANT
