@@ -1,6 +1,7 @@
-date: 20/8/2026
-author: KR0140
-
-[ ] check for path in scripts file, make sure there is unsolid path like ../config
-	- start.sh contain ../ path
-
+# DEV NOTE
+date: 20/08/2026
+author: KR0410
+## Need to fix
+[done] info.sh & status.sh: replay info wrong
+[done] adding window size info to info.sh and status.sh 
+ 	

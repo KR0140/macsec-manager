@@ -9,4 +9,7 @@
 * Adding validate_config(), generate_wpa_config()
 - Changed `start.sh`:
 * In step 2, remove copy wpa_supplicant.conf logic. Using generate_wpa_config() from common.sh
+- Changed `info.sh` & `status.sh`:
+* Fixing replay info offset ($16 -> $20)
+* Adding window size info
 
