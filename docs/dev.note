@@ -4,4 +4,8 @@ author: KR0410
 ## Need to fix
 [done] info.sh & status.sh: replay info wrong
 [done] adding window size info to info.sh and status.sh 
- 	
+
+## Need to do
+[] modify send_packet: make it can send any package to specifize interface
+[] modify framelog.sh: currently capture on eth0, how about macsec0 ?
+
